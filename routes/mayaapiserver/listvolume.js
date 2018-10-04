@@ -3,9 +3,9 @@ const router = express();
 const http = require('request');
 
 
-const nameSpaces = `${process.argv[5]}`;
-const mayaapiIp = `${process.argv[6]}`;
-const applicationDeployedNamespaces = `${process.argv[4]}`;
+const nameSpaces = `${process.argv[2]}`;
+const mayaapiIp = `${process.argv[3]}`;
+const applicationDeployedNamespaces = `${process.argv[2]}`;
 
 var options = {
     url: `http://${mayaapiIp}:5656/latest/volumes/`,
@@ -32,7 +32,7 @@ http.get(options, function (err, resp, body) {
         console.log(data);
 
         for (i = 0; i < data.items.length; i++) {
-            if (data.items[i].metadata.name.includes(applicationDeployedNamespaces))
+            if (data.items[i].spec.casType == "jiva") {
                 mayaVolume.push({
                     name: data.items[i].metadata.name,
                     size: data.items[i].metadata.annotations['openebs.io/volume-size'],
@@ -41,6 +41,7 @@ http.get(options, function (err, resp, body) {
                     kind: data.items[i].kind,
                     castype: data.items[i].spec.casType
                 });
+            }
         }
         console.log(mayaVolume);
     }
@@ -67,7 +68,7 @@ router.get('/volume', (req, res) => {
             // console.log(data);
 
             for (i = 0; i < data.items.length; i++) {
-                if (data.items[i].metadata.name.includes(applicationDeployedNamespaces))
+                if (data.items[i].spec.casType == "jiva") {
                     mayaVolume.push({
                         name: data.items[i].metadata.name,
                         size: data.items[i].metadata.annotations['openebs.io/volume-size'],
@@ -76,6 +77,7 @@ router.get('/volume', (req, res) => {
                         kind: data.items[i].kind,
                         castype: data.items[i].spec.casType
                     });
+                }
             }
         }
         // console.log(body +' this is body1')

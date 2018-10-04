@@ -6,15 +6,15 @@ env:
 services:
   - docker
 script:
-  - docker build -t inyee/mongo-jiva-backend:$TRAVIS_BRANCH-$COMMIT .
+  - docker build -t inyee/prometheus-jiva-backend:$TRAVIS_BRANCH-$COMMIT .
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_PULL_REQUEST
   - docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
 after_success:
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-  docker push inyee/mongo-jiva-backend:$TRAVIS_BRANCH-$COMMIT ;
+  docker push inyee/prometheus-jiva-backend:$TRAVIS_BRANCH-$COMMIT ;
   fi
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" != "false" ]; then
-  docker push inyee/mongo-jiva-backend:$TRAVIS_BRANCH-$COMMIT ;
+  docker push inyee/prometheus-jiva-backend:$TRAVIS_BRANCH-$COMMIT ;
   fi  
 

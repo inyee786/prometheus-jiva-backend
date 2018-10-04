@@ -2,7 +2,7 @@ const mongoConnection = require("mongoose");
 
 // MongoDB URL for database connection
 // const dbHost = "mongodb://127.0.0.1:27017/maya";
-const dbHost = `${process.argv[2]}/${process.argv[3]}`;
+// const dbHost = `${process.argv[2]}/${process.argv[3]}`;
 console.log(dbHost);
 const options = {
     autoIndex: false, // Don't build indexes

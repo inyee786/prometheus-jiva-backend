@@ -9,7 +9,7 @@ k8sApi.setDefaultAuthentication(kc);
 
 // this is for inseide the cluster
 // var k8sApi = k8s.Config.defaultClient();
-var nameSpaces = `${process.argv[4]}`
+var nameSpaces = `${process.argv[2]}`
 router.get("/sequence", (request, response) => {
   k8sApi.listNode().then(resNode => {
     return new Promise(function (resolve, reject) {
